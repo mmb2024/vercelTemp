@@ -1,7 +1,10 @@
 import { createPool } from '@vercel/postgres';
 import { sql } from "@vercel/postgres";
+import "dotenv/config";
 
 async function seed() {
+  console.log(`+page.server seed() L5`);
+
   const createTable = await sql`
     CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
@@ -40,8 +43,11 @@ async function seed() {
 }
 
 export async function load() {
-	const db = createPool();
   const startTime = Date.now();
+  console.log(`+page.server load() L45: startTime= `, startTime);
+	const db = createPool({
+    connectionString: process.env.POSTGRES_URL
+  });
 
   try {
 		const { rows: users } = await db.query('SELECT * FROM users');
