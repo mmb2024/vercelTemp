@@ -15,7 +15,7 @@ async function seed() {
     );
     `;
 
-  console.log(`Created "users" table.  L18`);
+  console.log(`Created "users" table. L18`);
 
   const users = await Promise.all([
     sql`
